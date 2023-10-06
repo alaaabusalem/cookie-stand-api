@@ -18,7 +18,19 @@ namespace cookie_stand
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
+			builder.Services.AddCors(options =>
+			{
+				options.AddDefaultPolicy(
+					policy =>
+					{
+						policy.AllowAnyOrigin()
+						.AllowAnyMethod()
+						.AllowAnyHeader();
 
+
+					}
+					);
+			});
 			//DB connectionString 
 			string connString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -36,7 +48,7 @@ namespace cookie_stand
 				app.UseSwagger();
 				app.UseSwaggerUI();
 			}
-
+			app.UseCors();
 			//app.UseHttpsRedirection();
 
 			//app.UseAuthorization();
