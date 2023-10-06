@@ -63,13 +63,13 @@ namespace cookie_stand.Models.Services
 				Average_cookies_per_sale=CS.Average_cookies_per_sale,
 				Maximum_customers_per_hour = CS.Maximum_customers_per_hour,
 				Minimum_customers_per_hour = CS.Minimum_customers_per_hour,
-			   hourly_sales = CS.cookiStandnHourlysales.Select(s => new CookiStandHourlySaleDTO()
-				{
-					Value= s.Value,	
+			// = CS.cookiStandnHourlysales.Select(s => new CookiStandHourlySaleDTO()
+			//{
+			//Value= s.Value,	
 
-				}).ToList(),
-
-			 }).FirstOrDefaultAsync(cs=> cs.CookieStandId == id);
+			//}).ToList(),
+			hourly_sales = CS.cookiStandnHourlysales.Select(s => s.Value).ToList()
+		}).FirstOrDefaultAsync(cs=> cs.CookieStandId == id);
 			if(cookieStand != null) return cookieStand;
 			return null;
 
@@ -83,12 +83,12 @@ namespace cookie_stand.Models.Services
 				Location = CS.Location,
 				Maximum_customers_per_hour = CS.Maximum_customers_per_hour,
 				Minimum_customers_per_hour = CS.Minimum_customers_per_hour,
-				hourly_sales = CS.cookiStandnHourlysales.Select(s => new CookiStandHourlySaleDTO()
-				{
-					Value = s.Value,
+				//hourly_sales = CS.cookiStandnHourlysales.Select(s => new CookiStandHourlySaleDTO()
+				//{
+				//	Value = s.Value,
 
-				}).ToList(),
-
+				//}).ToList(),
+				hourly_sales = CS.cookiStandnHourlysales.Select(H => H.Value).ToList()
 			}).ToListAsync();
 			
 			return cookieStand;
