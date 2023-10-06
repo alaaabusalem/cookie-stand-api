@@ -36,8 +36,9 @@ namespace cookie_stand.Data
 
 		public DbSet<CookieStand> CookieStands { get; set; }
 		public DbSet<HourlySale> HourlySales { get; set; }
-		public DbSet<CookiStandHourlySale> LocationHourlySales { get; set; }
+		public DbSet<CookiStandHourlySale> CookiStandHourlySales { get; set; }
 
 
 	}
 }
+

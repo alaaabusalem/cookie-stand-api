@@ -11,8 +11,8 @@ using cookie_stand.Data;
 namespace cookie_stand.Migrations
 {
     [DbContext(typeof(CookiStandDB))]
-    [Migration("20231006043523_DBiniat")]
-    partial class DBiniat
+    [Migration("20231006102556_MClass36")]
+    partial class MClass36
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,7 @@ namespace cookie_stand.Migrations
 
                     b.HasIndex("CookieStandId");
 
-                    b.ToTable("LocationHourlySales");
+                    b.ToTable("CookiStandHourlySales");
                 });
 
             modelBuilder.Entity("cookie_stand.Models.CookieStand", b =>
@@ -159,13 +159,13 @@ namespace cookie_stand.Migrations
             modelBuilder.Entity("cookie_stand.Models.CookiStandHourlySale", b =>
                 {
                     b.HasOne("cookie_stand.Models.CookieStand", "cookie_Stand")
-                        .WithMany()
+                        .WithMany("cookiStandnHourlysales")
                         .HasForeignKey("CookieStandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("cookie_stand.Models.HourlySale", "hourly_Sale")
-                        .WithMany()
+                        .WithMany("cookiStandnHourlysales")
                         .HasForeignKey("HourlySaleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -173,6 +173,16 @@ namespace cookie_stand.Migrations
                     b.Navigation("cookie_Stand");
 
                     b.Navigation("hourly_Sale");
+                });
+
+            modelBuilder.Entity("cookie_stand.Models.CookieStand", b =>
+                {
+                    b.Navigation("cookiStandnHourlysales");
+                });
+
+            modelBuilder.Entity("cookie_stand.Models.HourlySale", b =>
+                {
+                    b.Navigation("cookiStandnHourlysales");
                 });
 #pragma warning restore 612, 618
         }

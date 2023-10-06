@@ -9,17 +9,9 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\**" />
-    <Compile Remove="Models\Interfaces\**" />
-    <Compile Remove="Models\Services\**" />
     <Content Remove="Controllers\**" />
-    <Content Remove="Models\Interfaces\**" />
-    <Content Remove="Models\Services\**" />
     <EmbeddedResource Remove="Controllers\**" />
-    <EmbeddedResource Remove="Models\Interfaces\**" />
-    <EmbeddedResource Remove="Models\Services\**" />
     <None Remove="Controllers\**" />
-    <None Remove="Models\Interfaces\**" />
-    <None Remove="Models\Services\**" />
   </ItemGroup>
 
   <ItemGroup>

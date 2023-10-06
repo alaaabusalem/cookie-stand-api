@@ -7,7 +7,7 @@
 namespace cookie_stand.Migrations
 {
     /// <inheritdoc />
-    public partial class DBiniat : Migration
+    public partial class MClass36 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,7 +42,7 @@ namespace cookie_stand.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LocationHourlySales",
+                name: "CookiStandHourlySales",
                 columns: table => new
                 {
                     HourlySaleId = table.Column<int>(type: "int", nullable: false),
@@ -51,15 +51,15 @@ namespace cookie_stand.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LocationHourlySales", x => new { x.HourlySaleId, x.CookieStandId });
+                    table.PrimaryKey("PK_CookiStandHourlySales", x => new { x.HourlySaleId, x.CookieStandId });
                     table.ForeignKey(
-                        name: "FK_LocationHourlySales_CookieStands_CookieStandId",
+                        name: "FK_CookiStandHourlySales_CookieStands_CookieStandId",
                         column: x => x.CookieStandId,
                         principalTable: "CookieStands",
                         principalColumn: "CookieStandId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LocationHourlySales_HourlySales_HourlySaleId",
+                        name: "FK_CookiStandHourlySales_HourlySales_HourlySaleId",
                         column: x => x.HourlySaleId,
                         principalTable: "HourlySales",
                         principalColumn: "HourlySaleId",
@@ -88,8 +88,8 @@ namespace cookie_stand.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LocationHourlySales_CookieStandId",
-                table: "LocationHourlySales",
+                name: "IX_CookiStandHourlySales_CookieStandId",
+                table: "CookiStandHourlySales",
                 column: "CookieStandId");
         }
 
@@ -97,7 +97,7 @@ namespace cookie_stand.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "LocationHourlySales");
+                name: "CookiStandHourlySales");
 
             migrationBuilder.DropTable(
                 name: "CookieStands");
