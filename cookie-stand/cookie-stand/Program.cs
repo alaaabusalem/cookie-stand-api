@@ -1,5 +1,8 @@
 using cookie_stand.Data;
+using cookie_stand.Models.Interfaces;
+using cookie_stand.Models.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace cookie_stand
 {
@@ -22,6 +25,8 @@ namespace cookie_stand
 			builder.Services
 				.AddDbContext<CookiStandDB>
 				(opions => opions.UseSqlServer(connString));
+
+			builder.Services.AddTransient<ICookieStand, CookieStandService>();
 
 			var app = builder.Build();
 
