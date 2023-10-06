@@ -1,3 +1,6 @@
+using cookie_stand.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace cookie_stand
 {
 	public class Program
@@ -13,6 +16,13 @@ namespace cookie_stand
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
 
+			//DB connectionString 
+			string connString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+			builder.Services
+				.AddDbContext<CookiStandDB>
+				(opions => opions.UseSqlServer(connString));
+
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
@@ -22,9 +32,9 @@ namespace cookie_stand
 				app.UseSwaggerUI();
 			}
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
 
-			app.UseAuthorization();
+			//app.UseAuthorization();
 
 
 			app.MapControllers();
