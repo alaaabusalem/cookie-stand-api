@@ -12,7 +12,7 @@ using cookie_stand.Models.DTOs;
 
 namespace cookie_stand.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     [ApiController]
     public class CookieStandsController : ControllerBase
     {
@@ -23,8 +23,9 @@ namespace cookie_stand.Controllers
             _context = context;
         }
 
-        // GET: api/CookieStands
-        [HttpGet]
+		[Route("api/CookieStands")]
+		// GET: api/CookieStands
+		[HttpGet]
         public async Task<ActionResult<IEnumerable<GetCookieStand>>> GetCookieStands()
         {
           if ( await _context.GetCookieStands() == null)
@@ -36,8 +37,10 @@ namespace cookie_stand.Controllers
 
 		}
 
-        // GET: api/CookieStands/5
-        [HttpGet("{id}")]
+		[Route("api/CookieStand/{id}")]
+
+		// GET: api/CookieStands/5
+		[HttpGet("{id}")]
         public async Task<ActionResult<GetCookieStand>> GetCookieStand(int id)
         {
 			var cookieStand = await _context.GetCookieStand(id);
@@ -49,9 +52,11 @@ namespace cookie_stand.Controllers
             return cookieStand;
         }
 
-        // PUT: api/CookieStands/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+		[Route("api/CookieStand/{id}")]
+
+		// PUT: api/CookieStands/5
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutCookieStand(int id, UpdateCookieStand cookieStand)
         {
             if (id != cookieStand.CookieStandId)
@@ -70,10 +75,11 @@ namespace cookie_stand.Controllers
             
 
         }
+		[Route("api/CookieStand")]
 
-        // POST: api/CookieStands
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+		// POST: api/CookieStands
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		[HttpPost]
         public async Task<ActionResult<CookieStand>> PostCookieStand(CreatCookieStand cookieStand)
         {
             var stand = await _context.Creat(cookieStand);
@@ -81,13 +87,16 @@ namespace cookie_stand.Controllers
           {
               return Problem("Entity set 'CookiStandDB.CookieStands'  is null.");
           }
-          
 
-            return RedirectToAction("GetCookieStand", new { id = stand.CookieStandId });
+
+            //return RedirectToAction("GetCookieStand", new { id = stand.CookieStandId });
+            return Ok();
         }
 
-        // DELETE: api/CookieStands/5
-        [HttpDelete("{id}")]
+		[Route("api/CookieStand/{id}")]
+
+		// DELETE: api/CookieStands/5
+		[HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCookieStand(int id)
         {
             bool result = await _context.Delete(id);

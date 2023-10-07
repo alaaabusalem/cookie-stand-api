@@ -81,6 +81,8 @@ namespace cookie_stand.Models.Services
 			{
 				CookieStandId = CS.CookieStandId,
 				Location = CS.Location,
+				Average_cookies_per_sale = CS.Average_cookies_per_sale,
+
 				Maximum_customers_per_hour = CS.Maximum_customers_per_hour,
 				Minimum_customers_per_hour = CS.Minimum_customers_per_hour,
 				//hourly_sales = CS.cookiStandnHourlysales.Select(s => new CookiStandHourlySaleDTO()
