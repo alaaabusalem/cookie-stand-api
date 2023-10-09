@@ -1,6 +1,9 @@
 using cookie_stand.Data;
+using cookie_stand.Models;
 using cookie_stand.Models.Interfaces;
 using cookie_stand.Models.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
@@ -38,8 +41,28 @@ namespace cookie_stand
 			builder.Services
 				.AddDbContext<CookiStandDB>
 				(opions => opions.UseSqlServer(connString));
+			builder.Services.AddScoped<JwtTokenService>();
 
 			builder.Services.AddTransient<ICookieStand, CookieStandService>();
+			builder.Services.AddTransient<IUser, UserService>();
+
+
+			builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+			{
+				options.User.RequireUniqueEmail = true;
+			}).AddEntityFrameworkStores<CookiStandDB>();
+			builder.Services.AddAuthentication(options =>
+			{
+				options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			}).AddJwtBearer(options =>
+			{
+				// Tell the authenticaion scheme "how/where" to validate the token + secret
+				options.TokenValidationParameters = JwtTokenService.GetValidationPerameters(builder.Configuration);
+			});
+			builder.Services.AddAuthorization();
+
 
 			var app = builder.Build();
 
@@ -50,6 +73,8 @@ namespace cookie_stand
 			
 			
 			app.UseHttpsRedirection();
+
+			app.UseAuthentication();
 
 			app.UseAuthorization();
 

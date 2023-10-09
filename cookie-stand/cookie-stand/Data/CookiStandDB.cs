@@ -1,9 +1,12 @@
 ﻿using cookie_stand.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace cookie_stand.Data
 {
-	public class CookiStandDB: DbContext
+	public class CookiStandDB: IdentityDbContext<AppUser>
 	{
         public CookiStandDB(DbContextOptions options): base(options)
         {
@@ -12,6 +15,8 @@ namespace cookie_stand.Data
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			base.OnModelCreating(modelBuilder);
+
 			modelBuilder.Entity<CookiStandHourlySale>()
 				.HasKey(locationHourlySale => new { locationHourlySale.HourlySaleId, locationHourlySale.CookieStandId }
 				);
@@ -30,8 +35,44 @@ namespace cookie_stand.Data
 			 new HourlySale { HourlySaleId = 11, Time = 4 },
 			 new HourlySale { HourlySaleId = 12, Time = 5 },
 			 new HourlySale { HourlySaleId = 13, Time = 6 },
-			 new HourlySale { HourlySaleId = 14, Time = 7 }
+			new HourlySale { HourlySaleId = 14, Time = 7 }
 		   );
+			modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+			{
+				Id = "admin",
+				Name = "admin",
+				NormalizedName = "Admin",
+				ConcurrencyStamp = Guid.Empty.ToString()
+			});
+			modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+			{
+				Id = "user",
+				Name = "user",
+				NormalizedName = "USER",
+				ConcurrencyStamp = Guid.Empty.ToString()
+			});
+
+			var hasher = new PasswordHasher<AppUser>();
+
+			var admin = new AppUser
+			{
+				Id = "1",
+				UserName = "Admin",
+				NormalizedUserName = "ADMIN",
+				Email = "admin@Gmail.com",
+				PhoneNumber = "1234567890",
+				NormalizedEmail = "admin@GMAIL.COM",
+				EmailConfirmed = true,
+				LockoutEnabled = false
+			};
+			admin.PasswordHash = hasher.HashPassword(admin, "Admin@123");
+			modelBuilder.Entity<AppUser>().HasData(admin);
+			modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+			new IdentityUserRole<string>
+			{
+				RoleId = "admin",
+				UserId = admin.Id
+			});
 		}
 
 		public DbSet<CookieStand> CookieStands { get; set; }
