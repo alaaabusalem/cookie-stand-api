@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using cookie_stand.Data;
 
@@ -11,9 +12,11 @@ using cookie_stand.Data;
 namespace cookie_stand.Migrations
 {
     [DbContext(typeof(CookiStandDB))]
-    partial class CookiStandDBModelSnapshot : ModelSnapshot
+    [Migration("20231009145943_Ident")]
+    partial class Ident
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

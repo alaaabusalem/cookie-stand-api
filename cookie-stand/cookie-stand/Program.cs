@@ -1,6 +1,8 @@
 using cookie_stand.Data;
+using cookie_stand.Models;
 using cookie_stand.Models.Interfaces;
 using cookie_stand.Models.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
@@ -40,6 +42,10 @@ namespace cookie_stand
 				(opions => opions.UseSqlServer(connString));
 
 			builder.Services.AddTransient<ICookieStand, CookieStandService>();
+			builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+			{
+				options.User.RequireUniqueEmail = true;
+			}).AddEntityFrameworkStores<CookiStandDB>();
 
 			var app = builder.Build();
 
