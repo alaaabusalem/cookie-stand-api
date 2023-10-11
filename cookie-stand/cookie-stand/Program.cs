@@ -26,7 +26,7 @@ namespace cookie_stand
 				options.AddDefaultPolicy(
 					policy =>
 					{
-						policy.AllowAnyOrigin()
+						policy.WithOrigins("http://localhost:3000")
 						.AllowAnyMethod()
 						.AllowAnyHeader();
 

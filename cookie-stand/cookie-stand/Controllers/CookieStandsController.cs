@@ -101,7 +101,7 @@ namespace cookie_stand.Controllers
 
 		// DELETE: api/CookieStands/5
 		[HttpDelete("{id}")]
-		[Authorize(Roles = "admin")]
+		//[Authorize(Roles = "admin")]
 
 		public async Task<IActionResult> DeleteCookieStand(int id)
         {
