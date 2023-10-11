@@ -9,11 +9,13 @@ using cookie_stand.Data;
 using cookie_stand.Models;
 using cookie_stand.Models.Interfaces;
 using cookie_stand.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cookie_stand.Controllers
 {
     //[Route("api/[controller]")]
     [ApiController]
+    
     public class CookieStandsController : ControllerBase
     {
         private readonly ICookieStand _context;
@@ -51,6 +53,7 @@ namespace cookie_stand.Controllers
        
             return cookieStand;
         }
+		[Authorize(Roles = "admin")]
 
 		[Route("api/CookieStand/{id}")]
 
@@ -76,6 +79,7 @@ namespace cookie_stand.Controllers
 
         }
 		[Route("api/CookieStand")]
+		[Authorize(Roles = "admin")]
 
 		// POST: api/CookieStands
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -97,7 +101,9 @@ namespace cookie_stand.Controllers
 
 		// DELETE: api/CookieStands/5
 		[HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCookieStand(int id)
+		[Authorize(Roles = "admin")]
+
+		public async Task<IActionResult> DeleteCookieStand(int id)
         {
             bool result = await _context.Delete(id);
             if (result == false)
