@@ -78,13 +78,14 @@ namespace cookie_stand.Controllers
             
 
         }
-		[Route("api/CookieStand")]
-		[Authorize(Roles = "admin")]
+		[Route("api/Create/cookiestand")]
 
 		// POST: api/CookieStands
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
-        public async Task<ActionResult<CookieStand>> PostCookieStand(CreatCookieStand cookieStand)
+		[Authorize(Roles = "admin")]
+
+		public async Task<ActionResult<CookieStand>> PostCookieStand(CreatCookieStand cookieStand)
         {
             var stand = await _context.Creat(cookieStand);
           if (stand == null)
@@ -97,11 +98,12 @@ namespace cookie_stand.Controllers
             return Ok();
         }
 
-		[Route("api/CookieStand/{id}")]
+		[Route("api/Delete/{id}")]
 
 		// DELETE: api/CookieStands/5
 		[HttpDelete("{id}")]
 		//[Authorize(Roles = "admin")]
+		[Authorize(Roles = "admin")]
 
 		public async Task<IActionResult> DeleteCookieStand(int id)
         {
